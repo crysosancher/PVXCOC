@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to PVX COC</title>
+    <style>
+        @import url('https://fonts.cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            font-family: 'Segoe UI', sans-serif;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .side-image {
+					opacity: 35%;
+            position: fixed;
+            height: 400px;
+            width: 300px;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .side-image:hover {
+            transform: scale(1.05);
+        }
+
+        .side-image.left {
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .side-image.right {
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .container {
+            text-align: center;
+            padding: 3rem;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 25px;
+            border: 2px solid #ffd700;
+            position: relative;
+            max-width: 90%;
+            z-index: 2;
+        }
+
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+            color: #ffd700;
+        }
+
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #ffd700, #ff9900);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-weight: 800;
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            margin: 1.5rem 0;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .decoration {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .sword {
+            position: absolute;
+            font-size: 2rem;
+            color: rgba(255, 215, 0, 0.3);
+            animation: float 3s infinite ease-in-out;
+        }
+
+        .sword:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .sword:nth-child(2) { top: 20%; right: 20%; animation-delay: 0.5s; }
+        .sword:nth-child(3) { bottom: 15%; left: 15%; animation-delay: 1s; }
+        .sword:nth-child(4) { bottom: 25%; right: 10%; animation-delay: 1.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(10px, -10px) rotate(5deg); }
+        }
+
+        .glow {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255,215,0,0.2) 0%, rgba(255,215,0,0) 70%);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.2); opacity: 0.4; }
+            100% { transform: scale(1); opacity: 0.6; }
+        }
+
+        .clash-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            margin-top: 2rem;
+            background: linear-gradient(45deg, #ffd700, #ff9900);
+            border: none;
+            border-radius: 50px;
+            color: #1e3c72;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .clash-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Modal Styles */
+        .modal {
+					display: none;
+					position: fixed;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+					background: rgba(0, 0, 0, 0.9);
+					border: 2px solid #ffd700;
+					border-radius: 15px;
+					padding: 2rem;
+					text-align: center;
+					z-index: 100;
+					color: white;
+					animation: zoomIn 0.5s ease-out;
+			}
+
+			.modal h2 {
+					font-size: 2.4rem;
+					margin-bottom: 1rem;
+					color: #ffd700;
+			}
+
+			.modal p {
+					font-size: 1.2rem;
+					margin-bottom: 1rem;
+			}
+
+			.modal .close-btn {
+					display: inline-block;
+					padding: 0.8rem 1.5rem;
+					background: linear-gradient(45deg, #ffd700, #ff9900);
+					border: none;
+					border-radius: 50px;
+					color: #1e3c72;
+					font-weight: bold;
+					text-transform: uppercase;
+					cursor: pointer;
+					text-decoration: none;
+					font-size: 1rem;
+					box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+					transition: all 0.3s ease;
+			}
+
+			.modal .close-btn:hover {
+					transform: translateY(-3px);
+					box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+			}
+
+			/* Modal Background Overlay */
+			.modal-overlay {
+					display: none;
+					position: fixed;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					background: rgba(0, 0, 0, 0.7);
+					z-index: 99;
+			}
+			@keyframes zoomIn {
+				0% {
+						transform: translate(-50%, -50%) scale(0.5);
+						opacity: 0;
+				}
+				100% {
+						transform: translate(-50%, -50%) scale(1);
+						opacity: 1;
+				}
+		}
+
+        .troops {
+            position: absolute;
+            bottom: -50px;
+            width: 100%;
+            height: 100px;
+            background: url('/api/placeholder/400/100') bottom center repeat-x;
+            opacity: 0.2;
+            animation: march 20s linear infinite;
+        }
+
+        @keyframes march {
+            from { background-position: 0 bottom; }
+            to { background-position: -400px bottom; }
+        }
+
+        /* Media query for smaller screens */
+        @media (max-width: 1200px) {
+            .side-image {
+                display: none;
+            }
+        }
+
+				/* Media query for smaller screens */
+@media (max-width: 768px) {
+	.side-image {
+			width: 150px;
+			height: 200px;
+			opacity: 0.5;
+	}
+
+	.side-image.left {
+			left: 10px;
+			top: 60%;
+	}
+
+	.side-image.right {
+			right: 10px;
+			top: 60%;
+	}
+}
+
+/* Media query for very small screens */
+@media (max-width: 480px) {
+	.side-image {
+			width: 100px;
+			height: 150px;
+			opacity: 0.5;
+	}
+
+	.side-image.left {
+			left: 5px;
+			top: 65%;
+	}
+
+	.side-image.right {
+			right: 5px;
+			top: 65%;
+	}
+
+	.container {
+			padding: 2rem;
+			border-radius: 15px;
+	}
+
+	h1 {
+			font-size: 2.4rem;
+	}
+
+	.subtitle {
+			font-size: 1.2rem;
+	}
+
+	.clash-btn {
+			padding: 0.8rem 1.5rem;
+			font-size: 1rem;
+	}
+}
+
+    </style>
+</head>
+<body>
+    <img src="./healer.jpeg" alt="Left Side Character" class="side-image left">
+    <img src="./witch.webp" alt="Right Side Character" class="side-image right">
+    
+    <div class="decoration">
+        <div class="sword">⚔️</div>
+        <div class="sword">⚔️</div>
+        <div class="sword">⚔️</div>
+        <div class="sword">⚔️</div>
+        <div class="glow"></div>
+    </div>
+    <div class="troops"></div>
+    <div class="container">
+        <div class="logo">⚔️</div>
+        <h1>Welcome to PVX COC</h1>
+        <div class="subtitle">
+            ~Adi The Supreme
+        </div>
+        <a href="#" class="clash-btn">Enter Battle</a>
+    </div>
+		<!-- Modal -->
+    <div class="modal-overlay"></div>
+    <div class="modal">
+        <h2>Cryso 👽</h2>
+        <!-- <h2>Stay Tuned for Updates</h2> -->
+        <p>The battle is about to begin. Check back soon for epic content!</p>
+        <button class="close-btn">Close</button>
+    </div>
+
+    <script>
+        const modal = document.querySelector('.modal');
+        const overlay = document.querySelector('.modal-overlay');
+        const clashBtn = document.querySelector('.clash-btn');
+        const closeBtn = document.querySelector('.modal .close-btn');
+
+        // Show modal
+        clashBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            modal.style.display = 'block';
+            overlay.style.display = 'block';
+        });
+
+        // Close modal
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+
+        // Close modal when clicking on overlay
+        overlay.addEventListener('click', () => {
+            modal.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
